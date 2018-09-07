@@ -1,0 +1,16 @@
+--Install Python in Linux Mint:
+https://tecadmin.net/install-python-3-6-ubuntu-linuxmint/
+
+--Protoc:
+    --Baixar: (protoc 3.6.0 Python)
+        https://github.com/protocolbuffers/protobuf/releases
+    --Rodar:
+        ~/Downloads/protobuf-3.6.0/src/protoc object_detection/protos/*.proto --python_out=.
+    --Seguir os demais passos:
+        https://pythonprogramming.net/creating-tfrecord-files-tensorflow-object-detection-api-tutorial/?completed=/custom-objects-tracking-tensorflow-object-detection-api-tutorial/
+
+--Treino:
+    --From tensorflow/models/research
+        export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+    --From here:
+        python3 models/research/object_detection/legacy/train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_mobilenet_v1.config
