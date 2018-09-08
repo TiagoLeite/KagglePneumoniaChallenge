@@ -297,8 +297,6 @@ dmypy.json
 pyvenv.cfg
 pip-selfcheck.json
 
-data/*
-data/images/*
 models/*
 
 rfcn_resnet101/*
