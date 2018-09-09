@@ -196,7 +196,7 @@ for image_path in TEST_IMAGE_PATHS:
     # print(line)
     count = 0
     pred_string = ""
-    while (output_dict['detection_scores'][count] > 0.5) and (count < 10):
+    while (output_dict['detection_scores'][count] > 0.32) and (count < 10):
         # scores = str(output_dict['detection_scores'][count])
         confidence = str(round(output_dict['detection_scores'][count], 2))
         y_value = str(round(output_dict['detection_boxes'][count][0] * 1024, 1))  # change x for y - NF
