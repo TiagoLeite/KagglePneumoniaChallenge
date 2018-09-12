@@ -9,7 +9,7 @@ https://tecadmin.net/install-python-3-6-ubuntu-linuxmint/
     --Seguir os demais passos:
         https://pythonprogramming.net/creating-tfrecord-files-tensorflow-object-detection-api-tutorial/?completed=/custom-objects-tracking-tensorflow-object-detection-api-tutorial/
 
---Treino:
+--Treino:Tiago
     --From tensorflow/models/research
         export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
     --From here:
