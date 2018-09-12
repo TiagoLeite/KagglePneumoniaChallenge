@@ -39,6 +39,8 @@ for count in range(1000):
                 one += 1
             else:
                 vazio += 1
+    else:
+        vazio += 1
 
 print("Sem box detection: ", vazio, "out of 1000")
 print("Maior   que   0.6: ", six)
