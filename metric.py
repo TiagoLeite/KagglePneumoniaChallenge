@@ -7,6 +7,7 @@
 # I haven't thoroughly tested it so please comment if you found any bugs!
 
 import numpy as np
+import pandas as pd
 
 
 # helper function to calculate IoU
@@ -54,7 +55,8 @@ def map_iou(boxes_true, boxes_pred, scores, thresholds=None):
     if len(boxes_true) == 0 and len(boxes_pred) == 0:
         return None
 
-    assert boxes_true.shape[1] == 4 or boxes_pred.shape[1] == 4, "boxes should be 2D arrays with shape[1]=4"
+    # assert boxes_true.shape[1] == 4 or boxes_pred.shape[1] == 4, "boxes should be 2D arrays with shape[1]=4"
+
     if len(boxes_pred):
         assert len(scores) == len(boxes_pred), "boxes_pred and scores should be same length"
         # sort boxes_pred by scores in decreasing order
@@ -84,11 +86,62 @@ def map_iou(boxes_true, boxes_pred, scores, thresholds=None):
     return map_total / len(thresholds)
 
 
-# simple test
-boxes_true = np.array([[100, 100, 300, 200], [100, 100, 500, 400]])
-boxes_pred = np.array([[100, 100, 300, 200], [100, 90, 500, 400]])
-scores = [0.9, 0.7]
-mapa = map_iou(boxes_true, boxes_pred, scores)
-print(mapa)
+res_pred = pd.read_csv('results.csv')
+res_true = pd.read_csv('results_true.csv')
 
+boxes_pred = res_pred['PredictionString']
+joined_boxes_pred = list()
+final_boxes_pred = list()
+
+boxes_true = res_true['PredictionString']
+joined_boxes_true = list()
+final_boxes_true = list()
+
+scores = list()
+
+for k in range(len(boxes_pred)):
+
+    if type(boxes_pred[k]) is str:
+        new_boxes = [float(val) for val in boxes_pred[k].rstrip().split(' ')]
+        joined_boxes_pred.append(new_boxes)
+    else:
+        joined_boxes_pred.append([])
+
+for k in range(len(boxes_true)):
+    if type(boxes_true[k]) is str:
+        new_boxes = [float(val) for val in boxes_true[k].rstrip().split(' ')]
+        joined_boxes_true.append(new_boxes)
+    else:
+        joined_boxes_true.append([])
+
+for m in joined_boxes_pred:
+    new = [m[k * 5 + 1:k * 5 + 5] for k in range(int(len(m) / 5))]
+    final_boxes_pred.append(new)
+    scores.append([m[k * 5] for k in range(int(len(m) / 5))])
+
+for m in joined_boxes_true:
+    new = [m[k * 4:k * 4 + 4] for k in range(int(len(m) / 4))]
+    final_boxes_true.append(new)
+
+sum = 0
+count = 0
+
+for k in range(len(scores)):
+
+    print(final_boxes_true[k])
+    print(final_boxes_pred[k])
+    print(scores[k])
+
+    boxes_true = np.array(final_boxes_true[k])
+    boxes_pred = np.array(final_boxes_pred[k])
+    score = scores[k]
+    mapa = map_iou(boxes_true, boxes_pred, score)
+    print(mapa, '\n')
+    # print(type(mapa))
+
+    if type(mapa) is float:
+        sum += mapa
+        count += 1
+
+print("Final score:", round(sum/count, 3), "Count:", count)
 
