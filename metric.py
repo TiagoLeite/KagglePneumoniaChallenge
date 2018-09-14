@@ -143,5 +143,5 @@ for k in range(len(scores)):
         sum += mapa
         count += 1
 
-print("Final score:", round(sum/count, 3), "Count:", count)
+print("Final score:", round(sum/count, 3), "\nCount:", count)
 
