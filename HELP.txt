@@ -37,5 +37,4 @@ https://tecadmin.net/install-python-3-6-ubuntu-linuxmint/
         # tensorboard:
         tensorboard --logdir=path/to/train_dir
 
-        python3 eval.py logtostderr pipeline_config_path=training/ssd_mobilenet_v1.config checkpoint_dir=training/ eval_dir=eval/
-
+        python3 models/research/object_detection/legacy/eval.py --logtostderr --pipeline_config_path=training/ssd_mobilenet_v1_fpn.config --checkpoint_dir=training/ --eval_dir=eval/
