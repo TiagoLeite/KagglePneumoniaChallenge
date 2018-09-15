@@ -9,10 +9,33 @@ https://tecadmin.net/install-python-3-6-ubuntu-linuxmint/
     --Seguir os demais passos:
         https://pythonprogramming.net/creating-tfrecord-files-tensorflow-object-detection-api-tutorial/?completed=/custom-objects-tracking-tensorflow-object-detection-api-tutorial/
 
---Treino:Tiago
+--Generate tf_record:
+    python3 generate_tfrecord.py --csv_input=data/train_labels.csv --output_path=data/train.record
+
+
+--Treino:
     --From tensorflow/models/research
         export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
     --From here:
         python3 models/research/object_detection/legacy/train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_mobilenet_v1.config
+
 --Gerar .pb file:
         python3 models/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path training/ssd_mobilenet_v1_fpn.config --trained_checkpoint_prefix training/model.ckpt-$VALOR  --output_directory graph_out
+
+-- Outros:
+
+        #COCO API  isntallation
+        https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md
+
+        sudo apt-get install python3-dev  # for python3.x installs
+
+        python3 models/research/object_detection/model_main.py --pipeline_config_path=ssd_mobilenet_v1 --model_dir=training/ --num_train_steps=1000 --num_eval_steps=5 --alsologtostderr
+
+        # no module namedd tkinter:
+        sudo apt-get install python3-tk
+
+        # tensorboard:
+        tensorboard --logdir=path/to/train_dir
+
+        python3 eval.py logtostderr pipeline_config_path=training/ssd_mobilenet_v1.config checkpoint_dir=training/ eval_dir=eval/
+
