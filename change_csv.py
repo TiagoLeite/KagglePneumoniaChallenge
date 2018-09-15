@@ -1,8 +1,8 @@
 import pandas as pd
 
 
-data = pd.read_csv('resultados_mobilenet_test.csv')
-THRESHOLD = 0.35  # ----->>>>>> change this according to your preference
+data = pd.read_csv('results.csv')
+THRESHOLD = 0.4  # ----->>>>>> change this according to your preference
 
 new_strings = list()
 
@@ -21,4 +21,4 @@ for line in data['PredictionString']:
 
 new_file = pd.DataFrame({'patientId': data['patientId'], 'PredictionString': new_strings})
 
-new_file.to_csv('resultados_mobilenet_test_out_2.csv', index=False)
+new_file.to_csv('results_35.csv', index=False)

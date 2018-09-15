@@ -30,36 +30,6 @@ from object_detection.utils import ops as utils_ops
 if StrictVersion(tf.__version__) < StrictVersion('1.9.0'):
     raise ImportError('Please upgrade your TensorFlow installation to v1.9.* or later!')
 
-# ## Env setup
-
-# In[95]:
-
-
-# This is needed to display the images.
-# get_ipython().run_line_magic('matplotlib', 'inline')
-
-# ## Object detection imports
-# Here are the imports from the object detection module.
-
-# In[96]:
-
-
-# from utils import label_map_util
-
-# from utils import visualization_utils as vis_util
-
-# # Model preparation
-
-# ## Variables
-# 
-# Any model exported using the `export_inference_graph.py` tool can be loaded here simply by changing `PATH_TO_FROZEN_GRAPH` to point to a new .pb file.  
-# 
-# By default we use an "SSD with Mobilenet" model here. See the [detection model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md) for a list of other models that can be run out-of-the-box with varying speeds and accuracies.
-
-# In[97]:
-
-
-# What model to download.
 MODEL_NAME = 'graph_out'
 
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
@@ -70,12 +40,7 @@ PATH_TO_LABELS = os.path.join('data/', 'object-detection.pbtxt')
 
 NUM_CLASSES = 1
 
-# ## Download Model
-
-# ## Load a (frozen) Tensorflow model into memory.
-
-# In[98]:
-
+MAX_IMAGES = 400
 
 detection_graph = tf.Graph()
 with detection_graph.as_default():
@@ -210,23 +175,13 @@ for image_path in TEST_IMAGE_PATHS:
         pred_string += confidence + " " + x_value + " " + y_value + " " + height + " " + width + " "
         count += 1
     strings.append(pred_string)
-
-    '''vis_util.visualize_boxes_and_labels_on_image_array(
-        image_np,
-        output_dict['detection_boxes'],
-        output_dict['detection_classes'],
-        output_dict['detection_scores'],
-        category_index,
-        instance_masks=output_dict.get('detection_masks'),
-        use_normalized_coordinates=True,
-        line_thickness=8)'''
-    #   plt.figure(figsize=IMAGE_SIZE)
-    #   plt.imshow(image_np)
-    #   print(output_dict['detection_boxes'][0])
     count_img += 1
     if count_img % 5 == 0:
         print(image_path)
         print(count_img)
+
+    if count_img >= MAX_IMAGES:
+        break
 
 submission = pd.DataFrame({'patientId': ids, 'PredictionString': strings})
 submission = submission.sort_values(by=['patientId'])
