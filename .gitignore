@@ -298,13 +298,9 @@ pyvenv.cfg
 pip-selfcheck.json
 
 models/*
-
 rfcn_resnet101/*
 faster_rcnn_resnet101/*
 faster_rcnn_inception_v2/*
-
-# Avoid jpg,jpeg images
-*.jpg
-*.jpeg
+data/*
 
 # End of https://www.gitignore.io/api/python,pycharm,pycharm+iml,pycharm+all
