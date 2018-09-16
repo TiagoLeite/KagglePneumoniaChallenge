@@ -40,7 +40,7 @@ PATH_TO_LABELS = os.path.join('data/', 'object-detection.pbtxt')
 
 NUM_CLASSES = 1
 
-MAX_IMAGES = 400
+MAX_IMAGES = 500
 
 detection_graph = tf.Graph()
 with detection_graph.as_default():
