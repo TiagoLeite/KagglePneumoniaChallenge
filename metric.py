@@ -85,7 +85,8 @@ def map_iou(boxes_true, boxes_pred, scores, thresholds=None):
 
     return map_total / len(thresholds)
 
-res_pred = pd.read_csv('results.csv')
+
+res_pred = pd.read_csv('results_4.csv')
 res_true = pd.read_csv('results_true.csv')
 
 boxes_pred = res_pred['PredictionString']
@@ -140,7 +141,9 @@ for k in range(len(scores)):
 
     if type(mapa) is float:
         sum += mapa
-        count += 1
+    else:
+        sum += 1
 
-print("Final score:", round(sum/count, 3), "\nCount:", count)
+    count += 1
 
+print("Final score:", round(sum / count, 3), "\nCount:", count)
