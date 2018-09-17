@@ -20,5 +20,4 @@ for line in data['PredictionString']:
 
 
 new_file = pd.DataFrame({'patientId': data['patientId'], 'PredictionString': new_strings})
-
 new_file.to_csv('results_4.csv', index=False)
