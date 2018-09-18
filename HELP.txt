@@ -29,7 +29,7 @@ https://tecadmin.net/install-python-3-6-ubuntu-linuxmint/
 
         sudo apt-get install python3-dev  # for python3.x installs
 
-        python3 models/research/object_detection/model_main.py --pipeline_config_path=ssd_mobilenet_v1 --model_dir=training/ --num_train_steps=1000 --num_eval_steps=5 --alsologtostderr
+        python3 models/research/object_detection/model_main.py --pipeline_config_path=training/ssd_mobilenet_v1_fpn.config --model_dir=training/ --num_train_steps=500 --num_eval_steps=10 --alsologtostderr
 
         # no module namedd tkinter:
         sudo apt-get install python3-tk

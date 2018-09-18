@@ -38,7 +38,8 @@ PATH_TO_FROZEN_GRAPH = MODEL_NAME + '/frozen_inference_graph.pb'
 # List of the strings that is used to add correct label for each box.
 PATH_TO_LABELS = os.path.join('data/', 'object-detection.pbtxt')
 
-NUM_CLASSES = 1
+NUM_CLASSES = 2
+MAX_IMAGES = 9999999
 
 
 detection_graph = tf.Graph()
@@ -81,7 +82,7 @@ def load_image_into_numpy_array(image):
 # image1.jpg
 # image2.jpg
 # If you want to test the code with your images, just add path to the images to the TEST_IMAGE_PATHS.
-PATH_TO_TEST_IMAGES_DIR = 'data/images/test_jpg'
+PATH_TO_TEST_IMAGES_DIR = 'data/images/test_jpg' # 'data/images/validation_jpg'
 # TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1,13) ]
 TEST_IMAGE_PATHS = glob.glob(PATH_TO_TEST_IMAGES_DIR + '/*')
 # Size, in inches, of the output images.
@@ -142,6 +143,7 @@ ids = list()
 strings = list()
 count_img = 0
 print('started')
+
 for image_path in TEST_IMAGE_PATHS:
     image = Image.open(image_path)
     # the array based representation of the image will be used later in order to prepare the
@@ -160,7 +162,7 @@ for image_path in TEST_IMAGE_PATHS:
     # print(line)
     count = 0
     pred_string = ""
-    while (output_dict['detection_scores'][count] > 0.2) and (count < 10):
+    while (output_dict['detection_scores'][count] > 0.01) and (count < 10):
         # scores = str(output_dict['detection_scores'][count])
         confidence = str(round(output_dict['detection_scores'][count], 2))
         y_value = str(round(output_dict['detection_boxes'][count][0] * 1024, 1))  # change x for y - NF
@@ -171,13 +173,27 @@ for image_path in TEST_IMAGE_PATHS:
         height = str(
             round(((output_dict['detection_boxes'][count][3] - output_dict['detection_boxes'][count][1]) * 1024), 1))
         #     height = str(round(output_dict['detection_boxes'][count][3]*1024,1))
+
+        print(output_dict['detection_classes'][count])
+
+        #if output_dict['detection_classes'][count] == 1:
         pred_string += confidence + " " + x_value + " " + y_value + " " + height + " " + width + " "
+        print("Yes box")
+        #else:
+        #    print("Fake box")
+
         count += 1
+
     strings.append(pred_string)
+
     count_img += 1
+
     if count_img % 5 == 0:
         print(image_path)
         print(count_img)
+
+    if count_img >= MAX_IMAGES:
+        break
 
 
 submission = pd.DataFrame({'patientId': ids, 'PredictionString': strings})
