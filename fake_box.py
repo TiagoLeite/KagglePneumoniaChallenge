@@ -18,6 +18,7 @@ print(np.isnan(data['x']).sum())
 
 data['Target'] = np.where(data['Target'] == 0, "No", "Yes")
 
+
 data['x'] = data['x'].fillna(pd.Series(np.random.normal(231, 96, 30000)))
 data['y'] = data['y'].fillna(pd.Series(np.random.normal(364, 151, 30000)))
 data['width'] = data['width'].fillna(pd.Series(np.random.normal(231, 96, 30000)))
