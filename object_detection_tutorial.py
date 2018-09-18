@@ -40,7 +40,6 @@ PATH_TO_LABELS = os.path.join('data/', 'object-detection.pbtxt')
 
 NUM_CLASSES = 1
 
-MAX_IMAGES = 500
 
 detection_graph = tf.Graph()
 with detection_graph.as_default():
@@ -82,7 +81,7 @@ def load_image_into_numpy_array(image):
 # image1.jpg
 # image2.jpg
 # If you want to test the code with your images, just add path to the images to the TEST_IMAGE_PATHS.
-PATH_TO_TEST_IMAGES_DIR = 'data/images/test_jpg'  # data/images/test_jpg'
+PATH_TO_TEST_IMAGES_DIR = 'data/test_jpg'  # data/images/test_jpg'
 # TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1,13) ]
 TEST_IMAGE_PATHS = glob.glob(PATH_TO_TEST_IMAGES_DIR + '/*')
 # Size, in inches, of the output images.
@@ -180,8 +179,6 @@ for image_path in TEST_IMAGE_PATHS:
         print(image_path)
         print(count_img)
 
-    if count_img >= MAX_IMAGES:
-        break
 
 submission = pd.DataFrame({'patientId': ids, 'PredictionString': strings})
 submission = submission.sort_values(by=['patientId'])
