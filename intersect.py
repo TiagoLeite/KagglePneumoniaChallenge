@@ -1,3 +1,20 @@
+Skip to content
+ 
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ @nathancpf Sign out
+2
+0 0 TiagoLeite/KagglePneumoniaChallenge Private
+ Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights
+KagglePneumoniaChallenge/intersect.py
+4a044bc  2 hours ago
+@TiagoLeite TiagoLeite graph
+    
+136 lines (111 sloc)  3.55 KB
 import pandas as pd
 import numpy as np
 
@@ -130,6 +147,18 @@ new_file.to_csv('res_mobfpn_500_adam_20_inter.csv', index=False)
             rect.pop(0)
             new_strings[k].append(list(inter))
         print(new_strings[k], '\n')    
-
  --- Mantenha os mesmos nomes dos arquivos de entrada e saida (results.csv ou outro nome que preferir)
 '''
+© 2018 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Press h to open a hovercard with more details.
