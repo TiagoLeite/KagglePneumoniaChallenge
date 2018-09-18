@@ -59,7 +59,7 @@ def calc_intersec(rect1, rect2, size=1024):
 
 # t = calc_intersec([50, 50, 300, 300], [100, 100, 251, 251])
 
-data = pd.read_csv('results_intersected_2.csv')
+data = pd.read_csv('results.csv')
 # data = data.sort_values(by=['patientId'])
 ids = data['patientId']
 new_strings = list()
@@ -69,7 +69,7 @@ for line in data['PredictionString']:
         tokens = line.split(' ')
         rects = list()
         for k in range(int(len(tokens) / 5)):
-            rects.append(tokens[k * 5 : k * 5 + 5])
+            rects.append(tokens[k * 5: k * 5 + 5])
         # print(rects)
         new_strings.append(rects)
     else:
@@ -81,7 +81,6 @@ for k in range(len(new_strings)):
     size = len(rect)
     if size >= 3:
         inter = calc_intersec(rect[0], rect[2])
-        # print(rect[1], rect[2], inter)
         print(new_strings[k], inter)
         if inter != (rect[0][0], 0, 0, 0, 0):
             cont += 1
@@ -90,23 +89,47 @@ for k in range(len(new_strings)):
             rect.pop(1)
             new_strings[k].append(list(inter))
         print(new_strings[k], '\n')
-    # else:
-    #    print("None")
 
 for k in range(len(new_strings)):
     stri = ""
     for j in range(len(new_strings[k])):
         for i in range(len(new_strings[k][j])):
-            stri += str(new_strings[k][j][i])+" "
+            stri += str(new_strings[k][j][i]) + " "
     new_strings[k] = stri
 
 new_file = pd.DataFrame({'patientId': ids, 'PredictionString': new_strings})
-new_file.to_csv('results_intersected_3.csv', index=False)
+new_file.to_csv('results.csv', index=False)
 
+## COMO USAR:
+'''
+-Rode 3 vezes
+    1 vez: assim mesmo
+    
+    2 vez: troque linhas 82-91 por:
+    
+    if size >= 3:
+        inter = calc_intersec(rect[1], rect[2])
+        print(new_strings[k], inter)
+        if inter != (rect[1][0], 0, 0, 0, 0):
+            cont += 1
+            print(cont)
+            rect.pop(1)
+            rect.pop(1)
+            new_strings[k].append(list(inter))
+        print(new_strings[k], '\n')
+    
+    3 vez: troque linhas 82-91 por:
+    
+     if size >= 2:
+        inter = calc_intersec(rect[0], rect[1])
+        print(new_strings[k], inter)
+        if inter != (rect[0][0], 0, 0, 0, 0):
+            cont += 1
+            print(cont)
+            rect.pop(0)
+            rect.pop(0)
+            new_strings[k].append(list(inter))
+        print(new_strings[k], '\n')    
 
-
-
-
-
-
-
+ --- Mantenha os mesmos nomes dos arquivos de entrada e saida (results.csv ou outro nome que preferir)
+'''
