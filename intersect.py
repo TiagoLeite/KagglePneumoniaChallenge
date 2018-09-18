@@ -1,5 +1,5 @@
 Skip to content
- 
+
 Search or jump to…
 
 Pull requests
@@ -13,7 +13,7 @@ Explore
 KagglePneumoniaChallenge/intersect.py
 4a044bc  2 hours ago
 @TiagoLeite TiagoLeite graph
-    
+
 136 lines (111 sloc)  3.55 KB
 import pandas as pd
 import numpy as np
@@ -121,9 +121,9 @@ new_file.to_csv('results.csv', index=False)
 '''
 -Rode 3 vezes
     1 vez: assim mesmo
-    
-    2 vez: troque linhas 82-91 por:
-    
+
+    2 vez: troque linhas 99-108 por:
+
     if size >= 3:
         inter = calc_intersec(rect[1], rect[2])
         print(new_strings[k], inter)
@@ -134,9 +134,9 @@ new_file.to_csv('results.csv', index=False)
             rect.pop(1)
             new_strings[k].append(list(inter))
         print(new_strings[k], '\n')
-    
+
     3 vez: troque linhas 82-91 por:
-    
+
      if size >= 2:
         inter = calc_intersec(rect[0], rect[1])
         print(new_strings[k], inter)
@@ -146,19 +146,6 @@ new_file.to_csv('results.csv', index=False)
             rect.pop(0)
             rect.pop(0)
             new_strings[k].append(list(inter))
-        print(new_strings[k], '\n')    
+        print(new_strings[k], '\n')
  --- Mantenha os mesmos nomes dos arquivos de entrada e saida (results.csv ou outro nome que preferir)
 '''
-© 2018 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Press h to open a hovercard with more details.
