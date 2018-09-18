@@ -59,7 +59,7 @@ def calc_intersec(rect1, rect2, size=1024):
 
 # t = calc_intersec([50, 50, 300, 300], [100, 100, 251, 251])
 
-data = pd.read_csv('results.csv')
+data = pd.read_csv('res_mobfpn_500_adam_20_inter.csv')
 # data = data.sort_values(by=['patientId'])
 ids = data['patientId']
 new_strings = list()
@@ -79,14 +79,14 @@ cont = 0
 for k in range(len(new_strings)):
     rect = new_strings[k]
     size = len(rect)
-    if size >= 3:
-        inter = calc_intersec(rect[0], rect[2])
+    if size >= 2:
+        inter = calc_intersec(rect[0], rect[1])
         print(new_strings[k], inter)
         if inter != (rect[0][0], 0, 0, 0, 0):
             cont += 1
             print(cont)
             rect.pop(0)
-            rect.pop(1)
+            rect.pop(0)
             new_strings[k].append(list(inter))
         print(new_strings[k], '\n')
 
@@ -98,7 +98,7 @@ for k in range(len(new_strings)):
     new_strings[k] = stri
 
 new_file = pd.DataFrame({'patientId': ids, 'PredictionString': new_strings})
-new_file.to_csv('results.csv', index=False)
+new_file.to_csv('res_mobfpn_500_adam_20_inter.csv', index=False)
 
 ## COMO USAR:
 '''
