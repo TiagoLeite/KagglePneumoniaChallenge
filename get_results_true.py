@@ -2,7 +2,7 @@ import pandas as pd
 
 data = pd.read_csv('data/stage_1_train_labels.csv')
 
-data_res = pd.read_csv('results_4.csv')
+data_res = pd.read_csv('results.csv')
 
 data_filtered = data.loc[data['patientId'].isin(data_res['patientId'])]
 
