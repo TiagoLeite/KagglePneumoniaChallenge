@@ -178,10 +178,6 @@ for image_path in TEST_IMAGE_PATHS:
 
         #if output_dict['detection_classes'][count] == 1:
         pred_string += confidence + " " + x_value + " " + y_value + " " + height + " " + width + " "
-        print("Yes box")
-        #else:
-        #    print("Fake box")
-
         count += 1
 
     strings.append(pred_string)
