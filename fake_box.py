@@ -9,6 +9,9 @@ pd.set_option('display.max_columns', 100)
 
 data = pd.read_csv('data/stage_1_train_labels.csv')
 
+print(data.describe())
+
+"""
 print(data[:10])
 
 print(np.isnan(data['x']).sum())
@@ -27,7 +30,7 @@ data['height'] = data['height'].fillna(pd.Series(np.random.normal(364, 151, 3000
 data['x'] = data['x'].apply(lambda x: int(x))
 data['y'] = data['y'].apply(lambda x: int(x))
 data['width'] = data['width'].apply(lambda x: int(x))
-data['height'] = data['height'].apply(lambda x: int(x))
+data['height'] = data['height'].apply(lambda x: int(x))"""
 
 
 print(np.isnan(data['x']).sum())

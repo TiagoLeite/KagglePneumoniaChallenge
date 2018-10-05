@@ -27,8 +27,8 @@ from PIL import Image
 sys.path.append("..")
 from object_detection.utils import ops as utils_ops
 
-if StrictVersion(tf.__version__) < StrictVersion('1.9.0'):
-    raise ImportError('Please upgrade your TensorFlow installation to v1.9.* or later!')
+#if StrictVersion(tf.__version__) < StrictVersion('1.9.0'):
+#    raise ImportError('Please upgrade your TensorFlow installation to v1.9.* or later!')
 
 MODEL_NAME = 'graph_out'
 
@@ -174,7 +174,7 @@ for image_path in TEST_IMAGE_PATHS:
             round(((output_dict['detection_boxes'][count][3] - output_dict['detection_boxes'][count][1]) * 1024), 1))
         #     height = str(round(output_dict['detection_boxes'][count][3]*1024,1))
 
-        print(output_dict['detection_classes'][count])
+        # print(output_dict['detection_classes'][count])
 
         #if output_dict['detection_classes'][count] == 1:
         pred_string += confidence + " " + x_value + " " + y_value + " " + height + " " + width + " "
