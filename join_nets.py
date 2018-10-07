@@ -3,7 +3,7 @@ import numpy as np
 
 pd.set_option('display.max_columns', 500)
 
-df1 = pd.read_csv('scored_192.csv')
+df1 = pd.read_csv('scored_195.csv')
 df2 = pd.read_csv('has_pneu.csv')
 
 # print(df2[df2['prob'] < 0.97].count())
