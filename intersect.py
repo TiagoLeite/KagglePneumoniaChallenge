@@ -154,9 +154,9 @@ new_file.to_csv('scored_194.csv', index=False)
 '''
 -Rode 3 vezes
     1 vez: assim mesmo
-    
-    2 vez: troque linhas 82-91 por:
-    
+
+    2 vez: troque linhas 99-108 por:
+
     if size >= 3:
         inter = calc_intersec(rect[1], rect[2])
         print(new_strings[k], inter)
@@ -167,9 +167,9 @@ new_file.to_csv('scored_194.csv', index=False)
             rect.pop(1)
             new_strings[k].append(list(inter))
         print(new_strings[k], '\n')
-    
+
     3 vez: troque linhas 82-91 por:
-    
+
      if size >= 2:
         inter = calc_intersec(rect[0], rect[1])
         print(new_strings[k], inter)
@@ -179,6 +179,6 @@ new_file.to_csv('scored_194.csv', index=False)
             rect.pop(0)
             rect.pop(0)
             new_strings[k].append(list(inter))
-        print(new_strings[k], '\n')    
+        print(new_strings[k], '\n')
  --- Mantenha os mesmos nomes dos arquivos de entrada e saida (results.csv ou outro nome que preferir)
 '''
