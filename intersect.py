@@ -153,32 +153,28 @@ new_file.to_csv('scored_194.csv', index=False)
 # COMO USAR:
 '''
 -Rode 3 vezes
+
     1 vez: assim mesmo
     
-    2 vez: troque linhas 82-91 por:
+    2 vez: troque linhas 125-139 por:
     
-    if size >= 3:
-        inter = calc_intersec(rect[1], rect[2])
-        print(new_strings[k], inter)
-        if inter != (rect[1][0], 0, 0, 0, 0):
-            cont += 1
-            print(cont)
-            rect.pop(1)
-            rect.pop(1)
-            new_strings[k].append(list(inter))
-        print(new_strings[k], '\n')
+        if size >= 3:
+        for j in range(0, size-1):
+            if j >= len(new_strings[k])-2:
+                break
+            print('CALC\n\n')
+            inter = calc_intersect_opt(new_strings[k][j], new_strings[k][j+2])
+            print(new_strings[k], inter)
+            if inter != (new_strings[k][j][0], 0, 0, 0, 0):
+                cont += 1
+                print(cont)
+                new_strings[k].pop(j)
+                new_strings[k].pop(j+1)
+                new_strings[k].append(list(inter))
+                # j = j - 1
+            print(new_strings[k], '\n')
     
-    3 vez: troque linhas 82-91 por:
-    
-     if size >= 2:
-        inter = calc_intersec(rect[0], rect[1])
-        print(new_strings[k], inter)
-        if inter != (rect[0][0], 0, 0, 0, 0):
-            cont += 1
-            print(cont)
-            rect.pop(0)
-            rect.pop(0)
-            new_strings[k].append(list(inter))
-        print(new_strings[k], '\n')    
+    3 vez: volte o que tava antes e rode de novo 
+        
  --- Mantenha os mesmos nomes dos arquivos de entrada e saida (results.csv ou outro nome que preferir)
 '''
