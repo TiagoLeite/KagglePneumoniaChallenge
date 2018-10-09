@@ -70,6 +70,7 @@ for count in range(number_images):
         y = float(df['y'][count]*resize_factor)
         width = float(df['width'][count]*resize_factor)
         height = float(df['height'][count]*resize_factor)
+	box_area = [0]*4
         box_area[pos_box] = int((width * height) / (resize_factor*1000*resize_factor))
         num_boxes +=1
         if img_count<10:
