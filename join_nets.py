@@ -3,7 +3,7 @@ import numpy as np
 
 pd.set_option('display.max_columns', 500)
 
-df1 = pd.read_csv('scored_195.csv')
+df1 = pd.read_csv('scored_196.csv')
 df2 = pd.read_csv('has_pneu.csv')
 
 # print(df2[df2['prob'] < 0.97].count())
@@ -12,7 +12,7 @@ df2 = pd.read_csv('has_pneu.csv')
 
 print(df2[df2['has_pneu'] == 1].count())
 
-df2['randNumCol'] = np.random.randint(0, 10, 1000)  # 10 percent
+df2['randNumCol'] = np.random.randint(0, 5, 1000)  # 10 percent
 
 df_joined = pd.merge(df1, df2, on=['patientId'])
 
