@@ -2,21 +2,45 @@ import pandas as pd
 
 data = pd.read_csv('results_mobilenet_v1_no_lung_opacity_intersected.csv')
 # data = data.sort_values(by=['patientId'])
-ids = data['patientId']
-new_strings = list()
+ids = list()
+x = list()
+y = list()
+width = list()
+height = list()
+target = list()
 
-for line in data['PredictionString']:
+for index, line in data.iterrows():
 
-    if type(line) is str:
-        tokens = line.split(' ')
-        rects = list()
+    print(line['patientId'], line['PredictionString'])
+    id = line['patientId']
+
+    # print(str(line['PredictionString']))
+
+    if type(line['PredictionString']) is str:
+        tokens = str(line['PredictionString']).split(' ')
         for k in range(int(len(tokens) / 5)):
-            rects.append(tokens[k * 5: k * 5 + 5])
-        # print(rects)
-        new_strings.append(rects)
-    else:
-        new_strings.append("")
+            ids.append(id)
+            x.append(tokens[k * 5 + 1])
+            y.append(tokens[k * 5 + 2])
+            width.append(tokens[k * 5 + 3])
+            height.append(tokens[k * 5 + 4])
+            target.append('not_normal')
+            # new_strings.append(tokens[k * 5 + 1: k * 5 + 5])
+    # else:
+    #    ids.append(id)
+    #    x.append('')
+    #    y.append('')
+    #    width.append('')
+    #    height.append('')
+    #    target.append('not_normal')
 
+# print(ids)
+# print(new_strings)
+
+new_file = pd.DataFrame({'patientId': ids, 'x': x, 'y': y, 'width': width, 'height': height, 'Target': target})
+new_file.to_csv('train_not_normal.csv', index=False)
+
+'''
 cont = 0
 for k in range(len(new_strings)):
     rect = new_strings[k]
@@ -48,3 +72,4 @@ for k in range(len(new_strings)):
 
 new_file = pd.DataFrame({'patientId': ids, 'PredictionString': new_strings})
 new_file.to_csv('results_mobilenet_v1_no_lung_opacity_intersected.csv', index=False)
+'''
