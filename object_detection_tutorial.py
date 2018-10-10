@@ -27,7 +27,7 @@ from PIL import Image
 sys.path.append("..")
 from object_detection.utils import ops as utils_ops
 
-#if StrictVersion(tf.__version__) < StrictVersion('1.9.0'):
+# if StrictVersion(tf.__version__) < StrictVersion('1.9.0'):
 #    raise ImportError('Please upgrade your TensorFlow installation to v1.9.* or later!')
 
 MODEL_NAME = 'graph_out'
@@ -41,7 +41,6 @@ PATH_TO_LABELS = os.path.join('data/', 'object-detection.pbtxt')
 NUM_CLASSES = 2
 MAX_IMAGES = 9999999
 
-
 detection_graph = tf.Graph()
 with detection_graph.as_default():
     od_graph_def = tf.GraphDef()
@@ -49,6 +48,7 @@ with detection_graph.as_default():
         serialized_graph = fid.read()
         od_graph_def.ParseFromString(serialized_graph)
         tf.import_graph_def(od_graph_def, name='')
+
 
 # ## Loading label map
 # Label maps map indices to category names, so that when our convolution network predicts `5`, we know that this corresponds to `airplane`.  Here we use internal utility functions, but anything that returns a dictionary mapping integers to appropriate string labels would be fine
@@ -82,11 +82,12 @@ def load_image_into_numpy_array(image):
 # image1.jpg
 # image2.jpg
 # If you want to test the code with your images, just add path to the images to the TEST_IMAGE_PATHS.
-PATH_TO_TEST_IMAGES_DIR = 'data/images/test_jpg' # 'data/images/validation_jpg'
+PATH_TO_TEST_IMAGES_DIR = 'data/images/test_jpg'  # 'data/images/validation_jpg'
 # TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1,13) ]
 TEST_IMAGE_PATHS = glob.glob(PATH_TO_TEST_IMAGES_DIR + '/*')
 # Size, in inches, of the output images.
 IMAGE_SIZE = (12, 8)
+
 
 # In[102]:
 
@@ -162,8 +163,24 @@ for image_path in TEST_IMAGE_PATHS:
     # print(line)
     count = 0
     pred_string = ""
-    while (output_dict['detection_scores'][count] > 0.01) and (count < 10):
+
+    # if count_img % 2 == 0:
+    print('\nImage:', count_img)
+    print(image_path)
+
+    while (output_dict['detection_scores'][count] > 0.001) and (count < 10):
+
         # scores = str(output_dict['detection_scores'][count])
+
+        class_label = output_dict['detection_classes'][count]
+        print('label:', class_label)
+
+        if class_label == 2:
+            count += 1
+            continue
+
+        print("Found!")
+
         confidence = str(round(output_dict['detection_scores'][count], 2))
         y_value = str(round(output_dict['detection_boxes'][count][0] * 1024, 1))  # change x for y - NF
         x_value = str(round(output_dict['detection_boxes'][count][1] * 1024, 1))
@@ -176,7 +193,7 @@ for image_path in TEST_IMAGE_PATHS:
 
         # print(output_dict['detection_classes'][count])
 
-        #if output_dict['detection_classes'][count] == 1:
+        # if output_dict['detection_classes'][count] == 1:
         pred_string += confidence + " " + x_value + " " + y_value + " " + height + " " + width + " "
         count += 1
 
@@ -184,13 +201,8 @@ for image_path in TEST_IMAGE_PATHS:
 
     count_img += 1
 
-    if count_img % 5 == 0:
-        print(image_path)
-        print(count_img)
-
     if count_img >= MAX_IMAGES:
         break
-
 
 submission = pd.DataFrame({'patientId': ids, 'PredictionString': strings})
 submission = submission.sort_values(by=['patientId'])
