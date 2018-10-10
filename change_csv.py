@@ -24,7 +24,7 @@ for line in data['PredictionString']:
         for k in range(int(len(tokens)/5)):
             # if float(tokens[k * 5]) >= THRESHOLD:
             x, y, w, h = float(tokens[k*5+1]), float(tokens[k*5+2]), float(tokens[k*5+3]), float(tokens[k*5+4])
-            if (df_pneu['has_pneu'][l] == 1) or (w >= 200 and h >= 200):
+            if (df_pneu['has_pneu'][l] == 1) or w >= 250 or h >= 250:
                 for i in range(k * 5, k * 5 + 5):
                     new_line += tokens[i] + " "
         new_strings.append(new_line)

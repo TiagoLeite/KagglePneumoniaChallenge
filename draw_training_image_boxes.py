@@ -5,8 +5,8 @@ from matplotlib import pyplot as plt
 import glob, pylab, pandas as pd
 import os
 
-PATH_TO_TEST_IMAGES_DIR = '/home/nathan/Documents/Kaggle_Competition/images/train_jpg_2'
-df = pd.read_csv('/home/nathan/Documents/Kaggle_Competition/data/train_labels.csv')
+PATH_TO_TEST_IMAGES_DIR = 'data/images/train_jpg'
+df = pd.read_csv('data/train_labels.csv')
 
 # ADJUST THESE PARAMETERS
 resize_factor = 0.5

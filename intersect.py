@@ -102,7 +102,7 @@ def calc_intersec(rect1, rect2, size=1024):
 
 # t = calc_intersec([50, 50, 300, 300], [100, 100, 251, 251])
 
-data = pd.read_csv('scored_194.csv')
+data = pd.read_csv('scored_180_no_small_boxes_conf.csv')
 # data = data.sort_values(by=['patientId'])
 ids = data['patientId']
 new_strings = list()
@@ -148,7 +148,7 @@ for k in range(len(new_strings)):
     new_strings[k] = stri
 
 new_file = pd.DataFrame({'patientId': ids, 'PredictionString': new_strings})
-new_file.to_csv('scored_194.csv', index=False)
+new_file.to_csv('scored_180_no_small_boxes_conf.csv', index=False)
 
 # COMO USAR:
 '''
